@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "211513798276",
+    "firebase_url": "https://test-app-vlad.firebaseio.com",
+    "project_id": "test-app-vlad",
+    "storage_bucket": "test-app-vlad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:211513798276:android:c48204219468ec80b31cd1",
+        "android_client_info": {
+          "package_name": "com.example.lab8"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "211513798276-lmth2ccvb7fdqh9vrarhdt1s8tsrsanh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBC-MAwps7Kkp5FIWAm2fpeSoWYmiwty4A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "211513798276-lmth2ccvb7fdqh9vrarhdt1s8tsrsanh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

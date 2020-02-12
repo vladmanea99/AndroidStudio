@@ -26,7 +26,7 @@ public class FruitsActivity extends AppCompatActivity {
     void getFruits(){
         fruits = new ArrayList<>();
         fruits.add(new Fruit("banana", "galben"));
-        fruits.add(new Fruit("caspuni", "rosu", "https://cdn1.iconfinder.com/data/icons/food-111/512/strawberry-512.png"));
+        fruits.add(new Fruit("caspuni", "rosu"));
         fruits.add(new Fruit("mere", "verzi"));
         fruits.add(new Fruit("fructul pasiunii", "portocaliu"));
         fruits.add(new Fruit("mure", "albastru"));
