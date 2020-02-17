@@ -1,5 +1,7 @@
 package com.example.finalproject;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,15 +14,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
-import com.example.finalproject.ui.home.HomeFragment;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 
-public class AddTripActivity extends AppCompatActivity {
+public class EditTripActivity extends AppCompatActivity {
 
     private EditText editTextTripName;
     private EditText editTextDestination;
@@ -34,17 +32,37 @@ public class AddTripActivity extends AppCompatActivity {
     private String endDate;
     private String tripType;
 
+    private String idTrip;
+
+    public static final String ID = "id";
     public static final String TRIP_NAME = "trip_name";
     public static final String DESTINATION = "destination";
     public static final String PRICE = "price";
     public static final String RATING = "rating";
+    public static final String START_DATE = "start_date";
+    public static final String END_DATE = "end_date";
+    public static final String TRIP_TYPE = "trip_type";
 
+    void getExtra(){
+        Bundle bundleData = getIntent().getExtras();
+        idTrip = bundleData.getString(ID);
+        editTextTripName.setText(bundleData.getString(TRIP_NAME));
+        editTextDestination.setText(bundleData.getString(DESTINATION));
+        textViewPrice.setText(bundleData.getString(PRICE));
+        textViewStartDate.setText(bundleData.getString(START_DATE));
+        textViewEndDate.setText(bundleData.getString(END_DATE));
+        tripType = bundleData.getString(TRIP_TYPE);
+        startDate = bundleData.getString(START_DATE);
+        endDate = bundleData.getString(END_DATE);
+        ratingBarTrip.setRating(Float.parseFloat(bundleData.getString(RATING)));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_trip);
+        setContentView(R.layout.activity_edit_trip);
         initViews();
+        getExtra();
     }
 
     void initViews(){
@@ -74,7 +92,7 @@ public class AddTripActivity extends AppCompatActivity {
         });
     }
 
-    public void addTripToTripsOnClick(View view) {
+    public void editTripToTripsOnClick(View view) {
 
         //TODO save trip and add it to the other activity list
         //TODO add picture
@@ -100,14 +118,15 @@ public class AddTripActivity extends AppCompatActivity {
         else if(tripType == null){
             Snackbar.make(view, "Missing trip type, please add one", Snackbar.LENGTH_SHORT).show();
         }
+        else if(idTrip == null){
+            Snackbar.make(view, "Missing id type, please add one", Snackbar.LENGTH_SHORT).show();
+        }
         else {
-            Snackbar.make(view, "It saved", Snackbar.LENGTH_SHORT).show();
-
-            Intent mainIntent = new Intent(AddTripActivity.this, MainActivity.class);
-            Trip trip = new Trip("poza", editTextTripName.getText().toString(), editTextDestination.getText().toString(), Integer.toString(seekBarPrice.getProgress()), String.valueOf(ratingBarTrip.getRating()), false, startDate, endDate, tripType);
-            MainActivity.tripDataBase.tripDao().addTrip(trip);
-            Toast.makeText(getApplicationContext(), "User added successfully", Toast.LENGTH_SHORT).show();
-
+            Snackbar.make(view, idTrip, Snackbar.LENGTH_SHORT).show();
+            Intent mainIntent = new Intent(EditTripActivity.this, MainActivity.class);
+            int id = Integer.parseInt(idTrip);
+            Trip trip = new Trip(id, "poza", editTextTripName.getText().toString(), editTextDestination.getText().toString(), Integer.toString(seekBarPrice.getProgress()), String.valueOf(ratingBarTrip.getRating()), false, startDate, endDate, tripType);
+            MainActivity.tripDataBase.tripDao().updateTrip(trip);
             startActivity(mainIntent);
             finish();
         }
@@ -165,17 +184,17 @@ public class AddTripActivity extends AppCompatActivity {
                 if (checked) {
                     tripType = "City Break";
                 }
-                    break;
+                break;
             case R.id.radioButtonSeaSide:
                 if (checked){
                     tripType = "Sea Side";
                 }
-                    break;
+                break;
             case R.id.radioButtonMountains:
                 if (checked) {
                     tripType = "Mountains";
                 }
-                    break;
+                break;
         }
 
     }

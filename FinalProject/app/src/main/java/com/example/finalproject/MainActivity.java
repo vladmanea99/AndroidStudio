@@ -16,8 +16,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.room.Room;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import android.view.Menu;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
     private String price;
     private String rating;
 
+    public static TripDataBase tripDataBase;
+
+
     private AppBarConfiguration mAppBarConfiguration;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,18 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        if (intent.getExtras() != null) {
-            Bundle bundle = new Bundle();
-            bundle.putString(AddTripActivity.TRIP_NAME, intent.getExtras().getString(AddTripActivity.TRIP_NAME));
-            String m = intent.getExtras().getString(AddTripActivity.TRIP_NAME);
-            bundle.putString(AddTripActivity.DESTINATION, intent.getExtras().getString(AddTripActivity.DESTINATION));
-            bundle.putString(AddTripActivity.PRICE, getIntent().getExtras().getString(AddTripActivity.PRICE));
-            bundle.putString(AddTripActivity.RATING, getIntent().getExtras().getString(AddTripActivity.RATING));
-
-            HomeFragment homeFragment = new HomeFragment();
-            homeFragment.setArguments(bundle);
-
-        }
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -74,27 +69,15 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
 
-
+        tripDataBase = Room.databaseBuilder(getApplicationContext(), TripDataBase.class, "tripdb").allowMainThreadQueries().build();
 
     }
+
 
     @Override
     protected void onResume() {
         super.onResume();
         Intent intent = getIntent();
-
-        if (intent.getExtras() != null) {
-            Bundle bundle = new Bundle();
-            bundle.putString(AddTripActivity.TRIP_NAME, intent.getExtras().getString(AddTripActivity.TRIP_NAME));
-            String m = intent.getExtras().getString(AddTripActivity.TRIP_NAME);
-            bundle.putString(AddTripActivity.DESTINATION, intent.getExtras().getString(AddTripActivity.DESTINATION));
-            bundle.putString(AddTripActivity.PRICE, getIntent().getExtras().getString(AddTripActivity.PRICE));
-            bundle.putString(AddTripActivity.RATING, getIntent().getExtras().getString(AddTripActivity.RATING));
-
-            HomeFragment homeFragment = new HomeFragment();
-            homeFragment.setArguments(bundle);
-
-        }
     }
 
     @Override
