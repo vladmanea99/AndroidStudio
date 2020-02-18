@@ -27,6 +27,9 @@ public class EditTripActivity extends AppCompatActivity {
     private TextView textViewStartDate;
     private TextView textViewEndDate;
     private TextView textViewPrice;
+    private RadioButton radioButtonCityBreak;
+    private RadioButton radioButtonSeaSide;
+    private RadioButton radioButtonMountains;
 
     private String startDate;
     private String endDate;
@@ -55,6 +58,18 @@ public class EditTripActivity extends AppCompatActivity {
         startDate = bundleData.getString(START_DATE);
         endDate = bundleData.getString(END_DATE);
         ratingBarTrip.setRating(Float.parseFloat(bundleData.getString(RATING)));
+
+        String tripType = bundleData.getString(TRIP_TYPE);
+
+        if(tripType.equals("City Break")){
+            radioButtonCityBreak.setChecked(true);
+        }
+        else if(tripType.equals("Sea Side")){
+            radioButtonSeaSide.setChecked(true);
+        }
+        else if(tripType.equals("Mountains")){
+            radioButtonMountains.setChecked(true);
+        }
     }
 
     @Override
@@ -73,6 +88,9 @@ public class EditTripActivity extends AppCompatActivity {
         textViewStartDate = findViewById(R.id.textViewStartDate);
         textViewEndDate = findViewById(R.id.textViewEndDate);
         textViewPrice = findViewById(R.id.textViewPriceSeekBar);
+        radioButtonCityBreak = findViewById(R.id.radioButtonCityBreak);
+        radioButtonSeaSide = findViewById(R.id.radioButtonSeaSide);
+        radioButtonMountains = findViewById(R.id.radioButtonMountains);
 
         seekBarPrice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
