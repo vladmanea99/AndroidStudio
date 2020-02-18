@@ -34,6 +34,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation "androidx.room:room-runtime:$room_version"
     implementation 'com.github.androdocs:Simple-HTTP-Request:v1.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
     annotationProcessor "androidx.room:room-compiler:$room_version"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

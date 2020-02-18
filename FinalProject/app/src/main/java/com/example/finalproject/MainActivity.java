@@ -12,6 +12,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +23,7 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,13 +35,17 @@ public class MainActivity extends AppCompatActivity {
     private String rating;
 
     public static TripDataBase tripDataBase;
+    public static TripDataBase favouriteTripsDataBase;
 
+    FirebaseAuth mAuth;
 
     private AppBarConfiguration mAppBarConfiguration;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         Intent intent = getIntent();
 
@@ -57,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+        TextView textViewUser = navigationView.getHeaderView(0).findViewById(R.id.textViewUser);
+        //textViewUser.setText(mAuth.getCurrentUser().getEmail());
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -69,8 +79,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
 
-        tripDataBase = Room.databaseBuilder(getApplicationContext(), TripDataBase.class, "tripdb").allowMainThreadQueries().build();
 
+        tripDataBase = Room.databaseBuilder(getApplicationContext(), TripDataBase.class, "tripdb").allowMainThreadQueries().build();
+        favouriteTripsDataBase = Room.databaseBuilder(getApplicationContext(), TripDataBase.class, "tripdb").allowMainThreadQueries().build();
     }
 
 

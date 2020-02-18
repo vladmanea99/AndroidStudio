@@ -33,16 +33,32 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TripsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final TripsViewHolder holder, int position) {
 
         //TODO Add picture and render it
         final Trip currentTrip = trips.get(position);
-        holder.getTextViewId().setText(Integer.toString(currentTrip.getId()));
-        holder.getTextViewTripName().setText(currentTrip.getTripName());
-        holder.getTextViewDestination().setText(currentTrip.getDestination());
-        holder.getTextViewPrice().setText(currentTrip.getPrice());
-        holder.getTextViewRating().setText(currentTrip.getRating());
+        holder.getTextViewId().setText("Id : " + Integer.toString(currentTrip.getId()));
+        holder.getTextViewTripName().setText("Trip name : " + currentTrip.getTripName());
+        holder.getTextViewDestination().setText("Destination : " + currentTrip.getDestination());
+        holder.getTextViewPrice().setText("Price : " + currentTrip.getPrice());
+        holder.getTextViewRating().setText("Rating : " + currentTrip.getRating());
         holder.getCheckBoxBookmarked().setChecked(currentTrip.isBookmarked());
+
+        holder.getCheckBoxBookmarked().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(holder.getCheckBoxBookmarked().isChecked()){
+                    currentTrip.setBookmarked(true);
+                    MainActivity.tripDataBase.tripDao().updateTrip(currentTrip);
+                   // MainActivity.favouriteTripsDataBase.tripDao().addTrip(currentTrip);
+                }
+                else{
+                    currentTrip.setBookmarked(false);
+                    MainActivity.tripDataBase.tripDao().updateTrip(currentTrip);
+                    //MainActivity.favouriteTripsDataBase.tripDao().deleteTrip(currentTrip);
+                }
+            }
+        });
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override

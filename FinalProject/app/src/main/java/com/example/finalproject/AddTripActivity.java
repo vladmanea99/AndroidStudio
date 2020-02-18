@@ -106,7 +106,6 @@ public class AddTripActivity extends AppCompatActivity {
             Intent mainIntent = new Intent(AddTripActivity.this, MainActivity.class);
             Trip trip = new Trip("poza", editTextTripName.getText().toString(), editTextDestination.getText().toString(), Integer.toString(seekBarPrice.getProgress()), String.valueOf(ratingBarTrip.getRating()), false, startDate, endDate, tripType);
             MainActivity.tripDataBase.tripDao().addTrip(trip);
-            Toast.makeText(getApplicationContext(), "User added successfully", Toast.LENGTH_SHORT).show();
 
             startActivity(mainIntent);
             finish();
